@@ -1,0 +1,85 @@
+<ion-view view-title="My Work Orders">
+  <ion-nav-buttons side="right">
+    <label ng-show="sortasc == 1">
+      <i class="icon ion-arrow-up-b font-30"></i>
+    </label>
+    <label ng-show="sortasc == 0">
+      <i class="icon ion-arrow-down-b font-30"></i>
+    </label>
+  </ion-nav-buttons>
+
+  <ion-content ng-init="setTimerInterval()" class="has-tabs">
+    <!-- <div class="list">
+
+            <div class="item item-divider item-positive">
+                  <div align="center"> <strong><span class="font-30">My Work Orders </span><span class="badge badge-light">3</span> </strong></div>
+            </div>
+
+        </div>-->
+
+    <div class="card" ng-repeat="work in myWorkOrders track by work.OrderNo">
+      <div
+        class="item item-divider {{work.Priority > 3 ? 'item-assertive' : 'item-balanced'}}"
+      >
+        <i class="icon  ion-ios-pricetags"></i>
+        <strong>Order No: {{work.OrderNo}}</strong>
+        <span ng-show="work.TimeDisplay.length > 0" class="badge badge-light"
+          >{{work.TimeDisplay}}</span
+        >
+      </div>
+      <div class="item item-icon-right">
+        <i
+          class="icon  ion-ios-arrow-forward"
+          ui-sref="app.myworkitems({OrderNo: work.OrderNo})"
+        ></i>
+        <strong>
+          <span ng-if="userType == 'PMC'"
+            >Job Title :<span class="blue"> {{work.Title}}<br /> </span
+          ></span>
+          Area : <span class="blue">{{work.Unit}} </span>
+          <br />
+          <span ng-if="work.Requester"
+            >Requested By - <span class="blue">{{work.Requester}}</span></span
+          ><br />
+          <span ng-if="userType == 'SVC' || work.StartDateTime == undefined">
+            Requested On :
+            <span class="blue"
+              >{{formatDateTime(work.RequestDate + ' ' +
+              work.RequestTime)}}</span
+            ><br
+          /></span>
+          <span ng-if="userType != 'SVC' && work.StartDateTime != undefined">
+            Started On :
+            <span class="blue">{{formatDateTime(work.StartDateTime)}}</span><br
+          /></span>
+          Location: <span class="blue">{{work.Location}}</span> <br />
+          <span ng-if="userType == 'SVC'">
+            Priority: {{work.Priority}} -
+            <span
+              ng-class="{assertive:(work.Priority == 5 || work.Priority == 4),calm:(work.Priority == 3)}"
+              >{{getPriorityText(work.Priority)}}</span
+            ></span
+          >
+        </strong>
+      </div>
+    </div>
+
+    <div ng-show="!myWorkOrders.length" align="center">
+      <br />{{loadingStatus}}
+    </div>
+  </ion-content>
+
+  <ion-tabs class="tabs-dark tabs-icon-top ">
+    <ion-tab
+      title="Location"
+      icon="ion-android-walk"
+      ng-click="sortByLocation()"
+    ></ion-tab>
+    <ion-tab title="Time" icon="ion-ios-time" ng-click="sortByTime()"></ion-tab>
+    <ion-tab
+      title="Priority"
+      icon="ion-android-warning"
+      ng-click="sortByPriority()"
+    ></ion-tab>
+  </ion-tabs>
+</ion-view>

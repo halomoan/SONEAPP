@@ -1,0 +1,12 @@
+<ion-view title="Dialog">
+    <ion-content class="has-header padding">        
+        <button class="button button-full button-balanced" ng-click="alert()">{{ greeting }}</button>           <button class="button" ng-click="add()">Add notification</button>
+        <button class="button" ng-click="isScheduled()">Is Scheduled</button>
+        <button class="button button-full button-balanced" ng-click="subscribe()">Subscribe</button>
+        
+        
+        <ul><li ng-repeat="item in items">{{item}}</li></ul>
+        <button class="button button-full button-balanced" ng-click="sendmessage()">Send</button>
+        <button class="button button-full button-balanced" ng-click="close()">Close</button>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-view title="Welcome To ServiceONE">
+    <ion-content class="has-header padding">        
+  
+     <form ng-submit="doLogin(data.soneid)">
+      <div class="list">
+         <label class="item item-input item-stacked-label">
+            <span class="input-label">ServiceONE ID</span>
+            <input type="tel" placeholder="Enter Your SerivceONE ID"  ng-model="data.soneid" maxlength="4" style="font-size:20px">
+          </label>      
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Log in</button>
+        </label>
+      </div>
+    </form>    
+   
+    </ion-content>
+    <div class="bar bar-footer">
+        <h2 class="title" style="font-family:Lucida Sans Unicode;">- {{UUID}} -</h2>
+    </div>
+</ion-view>

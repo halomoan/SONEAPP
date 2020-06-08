@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Work Completed</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeEndMyWork()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="endWork()">
+            <div class="row">
+                <div class="col" align="right">
+                    <button class="button button-full icon ion-android-done-all button-positive" ng-click="submitStatus('COMP')"  type="button">&nbsp;Completed</button>
+                    <button class="button button-full icon ion-android-hand button-calm"  ng-click="submitStatus('DND')" type="button">&nbsp; Pending</button>
+
+                </div>
+
+            </div>
+
+        </form>
+    </ion-content>
+</ion-modal-view>

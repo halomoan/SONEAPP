@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Work Completed</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeDeescalate()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="endWork()">
+            <div class="row">
+                <div class="col" align="right">
+
+                    <button class="button button-full icon ion-person button-positive" ng-click="submitDeescalate('STFPREV')"  type="button">&nbsp;Assign To Previous Staff</button>
+                    <button class="button button-full icon ion-pinpoint button-calm"  ng-click="submitDeescalate('STFSYS')" type="button">&nbsp; Let The System Finds New Staff</button>
+                    <button class="button button-full icon ion-android-done-all button-assertive" ng-click="submitStatus('COMP')"  type="button">&nbsp;Completed</button>
+                </div>
+
+            </div>
+
+        </form>
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,44 @@
+<ion-view class="modal">
+    <ion-header-bar class="bar-positive">
+
+        <!--<button ng-click="hideItems()" class="button button-positive button-icon ion-ios-arrow-back"></button>-->
+
+        <button ng-click="searchItems()" class="button button-positive button-icon ion-search"></button>
+        <h1 class="title">{{headerText}}</h1>
+        <button ng-click="validate()" class="button button-positive button-icon ion-checkmark"></button>
+
+    </ion-header-bar>
+    <ion-content>
+        <!--<ion-refresher pulling-text="Pull to refresh" on-refresh="pullToRefresh()"></ion-refresher>-->
+        <div class="list">
+            <!-- Multi select -->
+            <ion-toggle
+                    ng-repeat="item in items | filter: {show:true}"
+                    ng-if="multiSelect"
+                    ng-checked="item.checked"
+                    ng-model="item.checked"
+                    class="item item-text-wrap">
+                <div class="incident-select-icon" ng-if="item.icon != null">
+                    <img src="{{item.icon}}" />
+                </div>
+                {{item.text}}
+            </ion-toggle>
+
+            <!-- Single select -->
+            <label
+                    ng-repeat="item in items | filter: {show:true}"
+                    ng-if="!multiSelect"
+                    class="item item-text-wrap"
+                    ng-click='validateSingle(item)'>
+                <div class="incident-select-icon" ng-if="item.icon != null">
+                    <i class="icon-{{item.text}}" style="background-image: url({{item.icon}})"></i>
+                </div>
+                {{item.text}}
+            </label>
+            <div align="center" ng-if="notFound">- Not Found - <br> Pull Down To Refresh</div>
+            <div align="center"><ion-spinner ng-if="doingSearch"></ion-spinner></div>
+
+        </div>
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" tagged-infinite-scroll-disabled="fetching || disabled" on-infinite="loadMore()" distance="90%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

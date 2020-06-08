@@ -1,0 +1,169 @@
+<ion-view>
+    <ion-nav-title>
+        Incident
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-refresh" ng-click="resetForm()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <h2><img style="float:left;  margin: 0px 15px 0px 0px;" src="img/icg_icon{{incidentIcon}}.jpg">Create Work Order<br><strong>{{incidentText}}</strong></h2>
+        <br/>
+
+        <form name="createIncidentForm" novalidate="" ng-submit="submitForm()">
+     
+            <ion-list>
+                <ion-item class="padding-5">
+                    <label class="item-input item-icon-right">                  
+                       <input type="text" placeholder="Enter Job Description" ng-change="shortTextChange()" ng-model="textForm.shortText" style="text-transform:uppercase" autofocus="true"> 
+                    </label>
+                </ion-item>
+            </ion-list>
+
+            <br>
+            <div style="display: flex">
+                <span style="flex:10;">
+                    <custom-select
+                            header-text="Location"
+                            allow-empty='false'
+                            text="textForm.locationText"
+                            items="textForm.locationItems"
+                            resource="textForm.locationResource"
+                            resparam="textForm.locationResParam"
+                            multi-select="false"
+                            callback = "saveIncidentLocation(action,item)"
+                    >
+                    </custom-select>
+                </span>
+                
+                    <img style="flex:1;display: inline-block;padding-left: 5px;" src="img/barcode-icon.jpg" ng-click="scanBarcode()">
+                
+            </div>
+           
+            <br>
+            <p>
+                <custom-select
+                        header-text="Incidents"
+                        allow-empty='false'
+                        text="textForm.incidentItemsText"
+                        items="textForm.incidentItems"
+                        resource="textForm.incidentItemsResource"
+                        resparam="textForm.incidentItemsResParam"
+                        multi-select="true"
+                        callback = "saveIncident(action,item)"
+                >
+                </custom-select>
+                <!--<br ng-if="incidents.length > 0">-->
+
+                <ion-list>
+
+                    <ion-item class="item-icon-left item-icon-right" ng-repeat="incident in textForm.incidents  | filter: { checked: true }">
+                        <i class="icon ion-camera" ng-show="incident.allowpic == 1" ng-click="getPicture('{{incident.id}}')"></i>
+                        <strong>{{$index+1}}. {{incident.text}}</strong>                                                
+                        <i class="icon ion-chevron-right ios-more-circled" ng-click="removeIncidentModal($index)"></i>
+                    </ion-item>
+                </ion-list>
+            </p>
+
+            <p>
+                <custom-select
+                        header-text="Priorities"
+                        allow-empty='false'
+                        text="textForm.priorityItemsText"                        
+                        items="textForm.priorityItems"
+                        multi-select="false"
+                        callback = "savePriority(item)"
+                >
+                </custom-select>
+            </p>
+
+            <p>
+            <p><strong>Note:</strong></p>
+            <ion-list>
+                <ion-item class="padding-5">
+                    <label class="item-input item-icon-right"  ng-click="addToNotes(myNote.text)">
+                        <i class="icon ion-plus-circled" href="#"></i>
+                        <input type="text" placeholder="Write Note" ng-model="myNote.text" style="text-transform:uppercase" autofocus="false">
+                    </label>
+                </ion-item>
+            </ion-list>
+            
+            <br ng-if="textForm.notes.length > 0">
+            <div class="list">
+                <div ng-if="textForm.notes.length > 0" class="item item-divider">
+                    Notes
+                </div>
+                <li class="item item-text-wrap item-icon-right" ng-repeat="note in textForm.notes track by $index">
+                    <i class="icon ion-close-circled" href="#" ng-click="removeNote($index)"></i>
+                    <strong>{{$index+1}}. {{note}}</strong>
+                </li>
+            </div>
+
+            </p>
+
+            <button class="button button-full button-positive" type="submit">
+                Submit Incident
+            </button>
+        </form>
+
+        <script id="image-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar class="bar-positive">
+                    <h1 class="title">{{selectedIncident.text}}</h1>
+                </ion-header-bar>
+                <ion-content>
+                    
+                    <div class="item item-text-wrap">
+                        <div class="button-bar">
+                            <a class="button button-calm" ng-click="removeIncident()">Delete Incident</a>
+                            <a class="button button-energized" ng-show="hasPicture" ng-click="removePicture()">Delete Picture</a>
+                            <a class="button button-assertive" ng-show="!hasPicture" ng-click="closeModal(0)">Close</a>
+                        </div>
+                        <div class="button-bar" ng-show="hasPicture">
+                            <a class="button button-assertive" ng-click="closeModal(0)">Close</a>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-show="hasPicture">
+                        <div class="col" align="center">
+                            <br>
+                            <img ng-src="{{incident_Photo}}" style="max-width: 100%" zoom-src="{{incident_Photo}}" zoom-view><br>
+                            {{Filename}}
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-modal-view>
+        </script>
+
+        <script id="submit-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar class="bar-positive">
+                    <h1 class="title">Submit Work Order</h1>
+                </ion-header-bar>
+                <ion-content>
+                    <div class="row">
+                        <div class="col">
+                            <ion-list>
+                                Uploading {{pictureName}}
+                                <br>
+                                <progress id="progressbar" max="100" value="{{progressval}}"> </progress>
+                                <div id="progressbarlabel">{{progressval}}%</div>
+                            </ion-list>
+
+                        </div>
+                    </div>
+
+                    <div class="item item-text-wrap">
+                        <div class="button-bar">
+                            <a class="button button-assertive" ng-click="closeModal(1)">Close</a>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-modal-view>
+        </script>
+
+    </ion-content>
+
+
+
+</ion-view>

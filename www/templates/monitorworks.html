@@ -1,0 +1,51 @@
+<!--<ion-view view-title="Work Orders">-->
+<ion-view>
+    <ion-nav-title>
+        Work Orders
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <label ng-show="sortasc == 1">
+            <i class="icon ion-arrow-up-b font-30"></i>
+        </label>
+        <label ng-show="sortasc == 0">
+            <i class="icon ion-arrow-down-b font-30"></i>
+        </label>
+    </ion-nav-buttons>
+    <ion-content class="has-tabs">
+
+        <div class="card" ng-repeat="work in workOrders">
+            <div class="item item-divider item-dark">
+                <i class="icon  ion-ios-pricetags"></i>
+                <span class="">Order No: {{work.OrderNo}}</span>
+                <span ng-show="work.Warning == 1" class="badge badge-assertive">{{work.DisplayText}}</span>
+            </div>
+            <div class="item item-icon-right">
+                <!--<i class="icon  ion-ios-arrow-forward" ng-click="addToMyWorks({{work.OrderNo}})"></i>-->
+                <i class="icon  ion-ios-arrow-forward" ui-sref="app.mworkitems({OrderNo: work.OrderNo})"></i>
+
+                <strong>
+                    Unit:  <span class="blue">{{work.Unit}} - {{work.Requester}}</span> <br>
+                    Staff-In-Charge:  <span class="blue">{{work.staff}}</span><br>
+                    Requested On: <span class="blue">{{formatDateTime(work.RequestDate + ' ' + work.RequestTime)}}</span> <br>
+                    Location:  <span class="blue">{{work.Location}}</span> <br>
+                    Priority: {{work.Priority}} - <span ng-class="{assertive:(work.Priority == 5 || work.Priority == 4),calm:(work.Priority == 3)}">{{getPriorityText(work.Priority)}}</span>
+                </strong>
+
+            </div>
+        </div>
+        <div ng-show="!workOrders.length" align="center"><br>{{loadingStatus}}</div>
+
+
+
+  </ion-content>
+    <ion-tabs class="tabs-dark tabs-icon-top ">
+        <ion-tab title="Refresh" icon="ion-ios-refresh" ng-click="refreshData()"></ion-tab>
+        <ion-tab title="Location" icon="ion-android-walk" ng-click="sortByLocation()"></ion-tab>
+        <ion-tab title="Time" icon="ion-ios-time" ng-click="sortByTime()" ></ion-tab>
+        <ion-tab title="Priority" icon="ion-android-warning" ng-click="sortByPriority()"></ion-tab>
+
+    </ion-tabs>
+
+
+
+</ion-view>

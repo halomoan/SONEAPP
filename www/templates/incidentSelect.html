@@ -1,0 +1,15 @@
+<ion-list>
+  <ion-item
+    class="item-text-wrap"
+    ng-click="showItems($event)"
+    align="center"
+    ng-class="{'item-dark': (backColor == 0),'item-balanced':(backColor == 1),'item-assertive':(backColor == 2)}"
+  >
+    <strong>{{text}}</strong>
+    <!--<span class="item-note">
+                 {{noteText}}  {{priorityItemsText}}
+
+                <img class="{{noteImgClass}}" ng-if="noteImg != ''" src="{{noteImg}}" />
+                </span>-->
+  </ion-item>
+</ion-list>

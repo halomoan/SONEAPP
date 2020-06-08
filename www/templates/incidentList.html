@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-nav-title>
+        Work Order(s)
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-refresh" ng-click="refreshList()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+
+        <div ng-if="loadingStatus" align="center">{{loadingStatus}}</div>
+        <div class="row" ng-repeat="group in incidentGroup">
+
+            <div class="col" ng-repeat="item in group track by $index" align="center">
+                <span ng-show="item">
+                <img src="img/icg_icon{{item.icon}}.jpg" ui-sref="app.incidentform({'IncidentIcon':'{{item.icon}}','IncidentGroupID':'{{item.id}}','IncidentText':'{{item.text}}'})">
+                <br>
+                {{item.text}}
+                </span>
+            </div>
+            <br>
+        </div>
+
+    </ion-content>
+
+
+
+</ion-view>
+

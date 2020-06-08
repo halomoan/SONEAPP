@@ -1,0 +1,109 @@
+<ion-view view-title="Work Details">
+  <ion-content>
+    <div class="list">
+      <div class="item">
+        <div class="row row-center">
+          <div class="col padding-0">
+            <span class="input-label"
+              >Task Date: <b>{{formatDate(workOrder.RequestDate)}}</b></span
+            >
+            <span class="input-label"
+              >Task Time: <b>{{workOrder.RequestTime}}</b></span
+            >
+          </div>
+          <div class="col padding-0" align="right">
+            <button
+              class="button button-positive"
+              ng-show="workOrder.Status == 0 && !isWIP(workOrder)"
+              ng-click="startMyWork(workOrder.OrderNo)"
+            >
+              Start Work
+            </button>
+            <button
+              class="button button-positive"
+              ng-show="workOrder.Status == 0 && isWIP(workOrder)"
+              ng-click="endMyWork(workOrder.OrderNo)"
+            >
+              End Work
+            </button>
+            <button
+              class="button button-positive"
+              ng-show="workOrder.Status == 10"
+              ng-click="deEscalate(workOrder.OrderNo)"
+            >
+              De-Escalate
+            </button>
+          </div>
+        </div>
+      </div>
+      <ion-list-header class="list-header">
+        <div align="center">
+          <h3><strong>Order No : {{workOrder.OrderNo}}</strong></h3>
+          <strong
+            ><span ng-show="showDiff" class="badge badge-assertive"
+              >{{timeDiff}}</span
+            >
+          </strong>
+        </div>
+      </ion-list-header>
+
+      <div class="item item-icon-left item-balanced">
+        <i class="icon ion-ios-person"></i>
+
+        <strong
+          >Loc : {{workOrder.Unit}}
+          <span ng-if="work.Requester"> - {{work.Requester}}</span></strong
+        >
+      </div>
+      <div class="item item-divider item-calm">
+        <strong>Task(s)</strong>
+      </div>
+      <li
+        class="item item-checkbox item-icon-right"
+        ng-class="{gray: task.disabled}"
+        ng-repeat="task in workOrder.Tasks"
+      >
+        <label class="checkbox">
+          <input type="checkbox" checked disabled ng-if="task.disabled" />
+          <input
+            type="checkbox"
+            ng-model="task.Checked"
+            ng-if="task.soneid == soneid && !task.disabled"
+          />
+        </label>
+        <span ng-click="showStatus('{{task.statustext}}','{{task.prevphone}}')"
+          ><strong>{{task.text}}</strong></span
+        >
+        <i
+          ng-show="task.hasPicture"
+          class="icon ion-image"
+          ng-click="showPicture('{{task.img}}')"
+        ></i>
+      </li>
+      <div class="item item-divider item-energized">
+        <strong>Note</strong>
+      </div>
+      <li class="item" ng-repeat="note in workOrder.Notes">
+        {{$index + 1}} . {{note.text}}
+      </li>
+      <li class="item" ng-show="!workOrder.Notes.length">- Empty Note -</li>
+    </div>
+
+    <script id="image-modal.html" type="text/ng-template">
+
+      <div class="modal image-modal" ng-click="closeImageModal()">
+         <!-- <ion-pane class="fullscreen-image"
+                    style="background-image: url({{imageSrc}});
+                          background-repeat: no-repeat;
+                          -webkit-background-size: cover;
+                          -moz-background-size: cover;
+                          -o-background-size: cover;
+                          background-size: contain;
+                          background-position: center top;">-->
+          <ion-pane class="fullscreen-image dark-bg">
+              <img ng-src="{{imageSrc}}" class="fullscreen-image" zoom-src="{{imageSrc}}" zoom-view/>
+          </ion-pane>
+      </div>
+    </script>
+  </ion-content>
+</ion-view>

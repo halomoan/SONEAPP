@@ -1,0 +1,57 @@
+<ion-view view-title="Work Details">
+    <ion-content>
+
+        <div class="list">
+            <div class="item">
+                <div class="row row-center">
+                    <div class="col">
+                        <span class="input-label" align="right">Date: <b>{{formatDate(workOrder.RequestDate)}}</b></span>
+                        <span class="input-label">Time: <b>{{workOrder.RequestTime}}</b></span>
+                    </div>
+                    <div class="col" align="right">
+                        <!--<button class="button button-positive" ng-click="addToMyWorks(workOrder.OrderNo)">Start Work</button>-->
+                    </div>
+                </div>
+            </div>
+            <div class="item item-divider item-royal">
+                <div align="left"> <strong><strong>Order No : {{workOrder.OrderNo}}</strong><span ng-if="workOrder.Interval != 0" class="badge badge-assertive">{{workOrder.TimeDisplay}}</span> </strong></div>
+            </div>
+
+        </div>
+        <div class="card">
+            <div class="item item-divider item-balanced">
+                <strong>Loc : {{workOrder.Unit}} - {{workOrder.Requester}}</strong><br>
+                <strong>Staff-in-Charge: {{workOrder.staff}}</strong>
+            </div>
+            <div class="item">
+
+
+                <ul class="list">
+                    <div class="item item-divider item-calm">
+                        <strong>Task(s)</strong>
+                    </div>
+                    <li class="item item-checkbox" ng-repeat="task in workOrder.Tasks">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                        </label>
+                        <strong>{{task.text}}</strong>
+                    </li>
+
+                    <div class="item item-divider item-energized">
+                        <strong>Note</strong>
+                    </div>
+                    <li class="item" ng-repeat="note in workOrder.Notes">
+                        {{$index + 1}} . {{note.text}}
+                    </li>
+                    <li class="item" ng-show="!workOrder.Notes.length">- Empty Note - </li>
+                </ul>
+
+            </div>
+        </div>
+
+
+    </ion-content>
+
+
+
+</ion-view>

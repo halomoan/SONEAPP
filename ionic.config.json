@@ -1,0 +1,64 @@
+{
+  "name": "SERVICEONE",
+  "type": "ionic1",
+  "integrations": {
+    "cordova": {},
+    "gulp": {}
+  },
+  "watchPatterns": ["scss/**/*", "www/**/*", "!www/lib/**/*", "!www/**/*.map"],
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/mobile/login",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/mobile/login"
+    },
+    {
+      "path": "/mobile/logout",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/mobile/logout"
+    },
+    {
+      "path": "/REST_myworkorder/workorder",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_myworkorder/workorder/"
+    },
+    {
+      "path": "/REST_myworkorder/setstart",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_myworkorder/setstart/"
+    },
+    {
+      "path": "/REST_groupworkorder/allworkorders",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_groupworkorder/allworkorders"
+    },
+    {
+      "path": "/REST_locations/records",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_locations/records"
+    },
+    {
+      "path": "/REST_locations/search",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_locations/search"
+    },
+    {
+      "path": "/REST_incidentgroup/records",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_incidentgroup/records"
+    },
+    {
+      "path": "/REST_incidentgroup/records",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_incidentgroup/records"
+    },
+    {
+      "path": "/REST_incidentitem/records",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_incidentitem/records"
+    },
+    {
+      "path": "/REST_incident/add",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_incident/add"
+    },
+    {
+      "path": "/REST_mobileuser/whoami",
+      "proxyUrl": "http://192.168.23.151/ServiceONE/index.php/REST_mobileuser/whoami"
+    },
+    {
+      "path": "/socket",
+      "proxyUrl": "http://192.168.23.151:3700"
+    }
+  ]
+}
